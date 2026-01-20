@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<Container>
+    <SendingFacility>ZMR</SendingFacility>
+    <EventDescription>Test Patient for MeasureReport</EventDescription>
+    <Patient>
+        <Name>
+            <FamilyName>MeasureReport</FamilyName>
+            <GivenName>Test</GivenName>
+        </Name>
+        <PrimaryLanguage>
+            <Code>ENG</Code>
+            <Description>English</Description>
+        </PrimaryLanguage>
+        <MaritalStatus>
+            <Code>S</Code>
+            <Description>Single</Description>
+        </MaritalStatus>
+        <Gender>
+            <Code>M</Code>
+            <Description>M</Description>
+        </Gender>
+        <BirthTime>1990-02-02T00:21:00Z</BirthTime>
+       <PatientNumbers>
+            <PatientNumber>
+                <Number>432555</Number>
+                <Organization>
+                    <Code>ZMR</Code>
+                    <Description>ZMR</Description>
+                </Organization>
+                <ISOAssigningAuthority>ZMR</ISOAssigningAuthority>
+                <NumberType>MRN</NumberType>
+                <SourceFormat>
+                    <Code>hl7fhirr4</Code>
+                    <Description>FHIR R4</Description>
+                    <SDACodingStandard>https://build.fhir.org/ig/HL7/davinci-epdx/CodeSystem-ProvenancePayerDataSource.html</SDACodingStandard>
+                </SourceFormat>
+            </PatientNumber>
+        </PatientNumbers>
+        <Addresses>
+            <Address>
+                <Street>1 Congress Street</Street>
+                <City>
+                    <Code>Boston</Code>
+                    <Description>Boston</Description>
+                </City>
+                <State>
+                    <Code>MA</Code>
+                    <Description>MA</Description>
+                </State>
+                <Zip>
+                    <Code>02114</Code>
+                    <Description>02114</Description>
+                </Zip>
+                <Country>
+                    <Code>USA</Code>
+                    <Description>United States of America</Description>
+                </Country>
+                <Use>
+                    <Code>HP</Code>
+                    <Description>primary home</Description>
+                    <SDACodingStandard>http://terminology.hl7.org/CodeSystem/v3-AddressUse</SDACodingStandard>
+                </Use>
+            </Address>
+        </Addresses>
+        <ContactInfo>
+            <HomePhoneNumber>617-333-8888</HomePhoneNumber>
+            <WorkPhoneNumber>617-777-6666</WorkPhoneNumber>
+            <MobilePhoneNumber>617-111-2222</MobilePhoneNumber>
+            <EmailAddress>MeasureReports@intersystems.com</EmailAddress>
+        </ContactInfo>
+        <EnteredBy>
+            <Code>STM</Code>
+            <Description>Sean McKenna</Description>
+        </EnteredBy>
+        <CreatedBy>
+            <Code>STM</Code>
+            <Description>Sean McKenna</Description>
+        </CreatedBy>
+        <EnteredAt>
+            <Code>ZMR</Code>
+            <Description>ZMR</Description>
+        </EnteredAt>
+        <EnteredOn>2025-09-28T11:00:00Z</EnteredOn>
+        <CreatedOn>2025-09-14T16:45:24Z</CreatedOn>
+   </Patient>
+   <ZMeasureReports>
+        <ZMeasureReport>
+		    <MeasureReportCategory>
+					<Code>ra</Code>
+					<Description>Risk Adjustment</Description>
+					<SDACodingStandard>http://hl7.org/fhir/CodeSystem/measurereport-category</SDACodingStandard>
+			</MeasureReportCategory>
+			<ClinicalDataCollectionDeadline>2025-09-01T11:30:30Z</ClinicalDataCollectionDeadline>
+            <Status>complete</Status>
+            <Type>individual</Type>
+            <Measure>https://build.fhir.org/ig/HL7/davinci-ra/Measure-RAModelExample01</Measure>
+			<Date>2025-09-30T11:00:00Z</Date>
+			<PeriodStart>2025-09-28T11:00:00Z</PeriodStart>
+			<PeriodEnd>2025-09-28T11:00:00Z</PeriodEnd>
+			<Groups>
+				<ZMeasureReportGroup>
+				    <Name>Group001</Name>
+					<CcType>
+						<Code>net-new</Code>
+						<Description>Net-New Condition Category</Description>
+						<SDACodingStandard>http://hl7.org/fhir/us/davinci-ra/StructureDefinition/ra-ccType</SDACodingStandard>
+					</CcType>
+					<EvidenceStatus>
+						<Code>closed-gap</Code>
+						<Description>Closed Gap</Description>
+						<SDACodingStandard>http://hl7.org/fhir/us/davinci-ra/CodeSystem/evidence-status</SDACodingStandard>
+					</EvidenceStatus>
+					<EvidenceStatusDate>2025-08-24T16:45:24Z</EvidenceStatusDate>
+					<HierarchicalStatus>
+						<Code>applied-not-superseded</Code>
+						<Description>Applied Not Superseded</Description>
+						<SDACodingStandard>http://hl7.org/fhir/us/davinci-ra/StructureDefinition/ra-hierarchicalStatus</SDACodingStandard>
+					</HierarchicalStatus>
+					<ConfidenceScale>
+						<Code>62482003</Code>
+						<Description>Low</Description>
+						<SDACodingStandard>http://snomed.info/sct</SDACodingStandard>
+					</ConfidenceScale>
+					<CcRemarks>
+						<ZccRemark>
+							<Url>Text</Url>
+							<Description>metformin dispensed.</Description>
+						</ZccRemark>
+						<ZccRemark>
+							<Url>Text</Url>
+							<Description>Dispensed by pharmacy A on 04/18/2024</Description>
+						</ZccRemark>
+					</CcRemarks>
+					<Code>
+						<Code>96</Code>
+						<Description>Specified Heart.Arrhythmias"</Description>
+						<SDACodingStandard>http://terminology.hl7.org/CodeSystem/cmshcc</SDACodingStandard>
+						<Version>24</Version>
+						<Text>CMS HCC: 96, Specified Heart.Arrhythmias</Text>
+					</Code>
+					<StratifierCode>
+						<Code>22</Code>
+						<Description>Morbid Obesity</Description>
+						<SDACodingStandard>http://terminology.hl7.org/6.5.0/CodeSystem-cmshcc.html</SDACodingStandard>
+					</StratifierCode>									
+				</ZMeasureReportGroup>
+				<ZMeasureReportGroup>
+				    <Name>Group002</Name>
+					<CcType>
+						<Code>suspected</Code>
+						<Description>Suspected Condition Category</Description>
+						<SDACodingStandard>http://hl7.org/fhir/us/davinci-ra/StructureDefinition/ra-ccType</SDACodingStandard>
+					</CcType>
+					<EvidenceStatus>
+						<Code>closed-gap</Code>
+						<Description>Closed Gap</Description>
+						<SDACodingStandard>http://hl7.org/fhir/us/davinci-ra/CodeSystem/evidence-status</SDACodingStandard>
+					</EvidenceStatus>
+					<EvidenceStatusDate>2025-08-24T16:45:24Z</EvidenceStatusDate>
+					<HierarchicalStatus>
+						<Code>applied-not-superseded</Code>
+						<Description>Applied Not Superseded</Description>
+						<SDACodingStandard>http://hl7.org/fhir/us/davinci-ra/StructureDefinition/ra-hierarchicalStatus</SDACodingStandard>
+					</HierarchicalStatus>
+					<ConfidenceScale>
+						<Code>62482003</Code>
+						<Description>Low</Description>
+						<SDACodingStandard>http://snomed.info/sct</SDACodingStandard>
+					</ConfidenceScale>
+					<CcRemarks>
+						<ZccRemark>
+							<Url>Text</Url>
+							<Decription>Patient has reported signs of irregular heartbeart.</Decription>
+						</ZccRemark>
+						<ZccRemark>
+							<Url>Text</Url>
+							<Decription>Noted by physician John Smith on 04/21/2024 at Clinic A</Decription>
+						</ZccRemark>
+					</CcRemarks>
+					<DxCodes>
+						<Diagnosis>
+							<Code>A15.0</Code>
+							<Description>Tuberculosis of lung</Description>
+							<SDACodingStandard>http://hl7.org/fhir/sid/icd-10-cm</SDACodingStandard>
+						</Diagnosis>
+						<Diagnosis>
+							<Code>A15.2</Code>
+							<Description>Tuberculosis of lung</Description>
+							<SDACodingStandard>http://hl7.org/fhir/sid/icd-10-cm</SDACodingStandard>
+						</Diagnosis>
+					</DxCodes>
+					<Code>
+						<Code>19</Code>
+						<Description>Diabetes without complications</Description>
+						<SDACodingStandard>http://terminology.hl7.org/CodeSystem/cmshcc</SDACodingStandard>
+						<Version>24</Version>
+						<Text>HCC 19:Diabetes without complications</Text>
+					</Code>
+					<StratifierCode>
+						<Code>22</Code>
+						<Description>Morbid Obesity</Description>
+						<SDACodingStandard>http://terminology.hl7.org/6.5.0/CodeSystem-cmshcc.html</SDACodingStandard>
+					</StratifierCode>									
+
+                </ZMeasureReportGroup>
+			</Groups>
+        </ZMeasureReport>
+   </ZMeasureReports>
+</Container>

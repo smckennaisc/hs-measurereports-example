@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for Windows (x86-64) 2024.1 (Build 267_2_24161U)" ts="2025-10-06 11:17:52">
+<Class name="HS.Local.FHIR.DTL.SDA3.vR4.MeasureReport.MeasureReport">
+<Super>Ens.DataTransformDTL</Super>
+<TimeChanged>67484,40201.3600498</TimeChanged>
+<TimeCreated>67483,40467.5536044</TimeCreated>
+<DependsOn>HS.Local.SDA3.ZMeasureReport,HS.FHIR.DTL.vR4.Model.Resource.MeasureReport</DependsOn>
+
+<Parameter name="IGNOREMISSINGSOURCE">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="REPORTERRORS">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="TREATEMPTYREPEATINGFIELDASNULL">
+<Default>0</Default>
+</Parameter>
+
+<XData name="DTL">
+<XMLNamespace>http://www.intersystems.com/dtl</XMLNamespace>
+<Data><![CDATA[
+<transform sourceClass='HS.Local.SDA3.ZMeasureReport' targetClass='HS.FHIR.DTL.vR4.Model.Resource.MeasureReport' create='new' language='objectscript' >
+<annotation>Transforms SDA3 HS.Local.SDA3.ZMeasureReport to vR4 MeasureReport</annotation>
+<if condition='target.meta&apos;=""' >
+<true>
+<assign value='target.meta.profile.Count()+1' property='index' action='set' />
+</true>
+<false>
+<assign value='1' property='index' action='set' />
+</false>
+</if>
+<assign value='"http://hl7.org/fhir/us/davinci-ra/StructureDefinition/ra-measurereport"' property='target.meta.profile' action='set' key='index' >
+<annotation> Profiles this resource claims to conform to </annotation>
+</assign>
+<if condition='##class(HS.FHIR.DTL.Util.Element.Object).Defined(source, "MeasureReportCategory")' >
+<true>
+<assign value='target.extension.Count()+1' property='index' action='set' />
+<assign value='##class(HS.FHIR.DTL.vR4.Model.Base.Extension).%New()' property='tmp' action='set' />
+<assign value='source.MeasureReportCategory.SDACodingStandard' property='tmp.url' action='set' />
+<assign value='source.MeasureReportCategory.SDACodingStandard' property='tmp.valueCodeableConcept.coding.(1).system' action='set' />
+<assign value='source.MeasureReportCategory.Code' property='tmp.valueCodeableConcept.coding.(1).code' action='set' />
+<assign value='tmp' property='target.extension' action='set' key='index' />
+</true>
+</if>
+<if condition='source.ClinicalDataCollectionDeadline&apos;=""' >
+<true>
+<assign value='target.extension.Count()+1' property='index' action='set' />
+<assign value='##class(HS.FHIR.DTL.vR4.Model.Base.Extension).%New()' property='tmp' action='set' />
+<assign value='##class(HS.FHIR.DTL.Util.Element.TypeCast).DateToFHIR(source.ClinicalDataCollectionDeadline, "date")' property='value' action='set' />
+<if condition='value&apos;=""' >
+<true>
+<assign value='"http://hl7.org/fhir/us/davinci-ra/StructureDefinition/ra-clinicalDataCollectionDeadline"' property='tmp.url' action='set' />
+<assign value='value' property='tmp.valueDate' action='set' />
+<assign value='tmp' property='target.extension' action='set' key='index' />
+</true>
+</if>
+</true>
+</if>
+<assign value='source.Status' property='target.status' action='set' />
+<assign value='source.Type' property='target.type' action='set' />
+<assign value='source.Measure' property='target.measure' action='set' />
+<assign value='aux("transformer").GetPatientReference()' property='value' action='set' />
+<if condition='value&apos;=""' >
+<true>
+<assign value='value' property='target.subject' action='set' >
+<annotation> The recipient of the products and services </annotation>
+</assign>
+</true>
+</if>
+<assign value='##class(HS.FHIR.DTL.Util.Element.TypeCast).DateToFHIR(source.Date, "date")' property='value' action='set' />
+<if condition='value&apos;=""' >
+<true>
+<assign value='value' property='target.date' action='set' >
+<annotation> Date the answers were gathered </annotation>
+</assign>
+</true>
+</if>
+<assign value='##class(HS.FHIR.DTL.Util.Element.TypeCast).DateToFHIR(source.PeriodStart, "date")' property='value' action='set' />
+<if condition='value&apos;=""' >
+<true>
+<assign value='value' property='target.period.start' action='set' >
+<annotation> Date the answers were gathered </annotation>
+</assign>
+</true>
+</if>
+<assign value='##class(HS.FHIR.DTL.Util.Element.TypeCast).DateToFHIR(source.PeriodEnd, "date")' property='value' action='set' />
+<if condition='value&apos;=""' >
+<true>
+<assign value='value' property='target.period.end' action='set' >
+<annotation> Date the answers were gathered </annotation>
+</assign>
+</true>
+</if>
+<foreach property='source.Groups()' key='st' >
+<assign value='source.Groups.(st).Name' property='target.group.(st).id' action='set' />
+<assign value='source.Groups.(st).Code.Code' property='target.group.(st).code.coding.(1).code' action='set' />
+<assign value='source.Groups.(st).Code.Text' property='target.group.(st).code.text' action='set' />
+<assign value='source.Groups.(st).Code.SDACodingStandard' property='target.group.(st).code.coding.(1).system' action='set' />
+<assign value='source.Groups.(st).Code.Version' property='target.group.(st).code.coding.(1).version' action='set' />
+<assign value='source.Groups.(st).Code.Description' property='target.group.(st).code.coding.(1).display' action='set' />
+<if condition='source.Groups.(st).CcType.Code&apos;=""' >
+<true>
+<assign value='target.group.(st).extension.Count()+1' property='index' action='set' />
+<assign value='##class(HS.FHIR.DTL.vR4.Model.Base.Extension).%New()' property='tmp' action='set' />
+<assign value='source.Groups.(st).CcType.SDACodingStandard' property='tmp.url' action='set' />
+<assign value='source.Groups.(st).CcType.SDACodingStandard' property='tmp.valueCodeableConcept.coding.(1).system' action='set' />
+<assign value='source.Groups.(st).CcType.Code' property='tmp.valueCodeableConcept.coding.(1).code' action='set' />
+<assign value='tmp' property='target.group.(st).extension' action='set' key='index' />
+</true>
+</if>
+<if condition='source.Groups.(st).EvidenceStatus.Code&apos;=""' >
+<true>
+<assign value='target.group.(st).extension.Count()+1' property='index' action='set' />
+<assign value='##class(HS.FHIR.DTL.vR4.Model.Base.Extension).%New()' property='tmp' action='set' />
+<assign value='source.Groups.(st).EvidenceStatus.SDACodingStandard' property='tmp.url' action='set' />
+<assign value='source.Groups.(st).EvidenceStatus.SDACodingStandard' property='tmp.valueCodeableConcept.coding.(1).system' action='set' />
+<assign value='source.Groups.(st).EvidenceStatus.Code' property='tmp.valueCodeableConcept.coding.(1).code' action='set' />
+<assign value='tmp' property='target.group.(st).extension' action='set' key='index' />
+</true>
+</if>
+<if condition='source.Groups.(st).EvidenceStatusDate&apos;=""' >
+<true>
+<assign value='target.group.(st).extension.Count()+1' property='index' action='set' />
+<assign value='##class(HS.FHIR.DTL.vR4.Model.Base.Extension).%New()' property='tmp' action='set' />
+<assign value='##class(HS.FHIR.DTL.Util.Element.TypeCast).DateToFHIR(source.Groups.(st).EvidenceStatusDate, "date")' property='value' action='set' />
+<if condition='value&apos;=""' >
+<true>
+<assign value='value' property='tmp.valueDate' action='set' />
+</true>
+</if>
+<assign value='"http://hl7.org/fhir/us/davinci-ra/StructureDefinition/ra-evidenceStatusDate"' property='tmp.url' action='set' />
+<assign value='tmp' property='target.group.(st).extension' action='set' key='index' />
+</true>
+</if>
+<if condition='source.Groups.(st).HierarchicalStatus.Code&apos;=""' >
+<true>
+<assign value='target.group.(st).extension.Count()+1' property='index' action='set' />
+<assign value='##class(HS.FHIR.DTL.vR4.Model.Base.Extension).%New()' property='tmp' action='set' />
+<assign value='source.Groups.(st).HierarchicalStatus.SDACodingStandard' property='tmp.url' action='set' />
+<assign value='source.Groups.(st).HierarchicalStatus.SDACodingStandard' property='tmp.valueCodeableConcept.coding.(1).system' action='set' />
+<assign value='source.Groups.(st).HierarchicalStatus.Code' property='tmp.valueCodeableConcept.coding.(1).code' action='set' />
+<assign value='tmp' property='target.group.(st).extension' action='set' key='index' />
+</true>
+</if>
+<if condition='source.Groups.(st).ConfidenceScale.Code&apos;=""' >
+<true>
+<assign value='target.group.(st).extension.Count()+1' property='index' action='set' />
+<assign value='##class(HS.FHIR.DTL.vR4.Model.Base.Extension).%New()' property='tmp' action='set' />
+<assign value='source.Groups.(st).ConfidenceScale.SDACodingStandard' property='tmp.url' action='set' />
+<assign value='source.Groups.(st).ConfidenceScale.SDACodingStandard' property='tmp.valueCodeableConcept.coding.(1).system' action='set' />
+<assign value='source.Groups.(st).ConfidenceScale.Code' property='tmp.valueCodeableConcept.coding.(1).code' action='set' />
+<assign value='tmp' property='target.group.(st).extension' action='set' key='index' />
+</true>
+</if>
+<foreach property='source.Groups.(st).CcRemarks()' key='cc' >
+<assign value='target.group.(st).extension.Count()+1' property='index' action='set' />
+<assign value='##class(HS.FHIR.DTL.vR4.Model.Base.Extension).%New()' property='tmp' action='set' />
+<assign value='source.Groups.(st).CcRemarks.(cc).Url' property='tmp.url' action='set' />
+<assign value='source.Groups.(st).CcRemarks.(cc).Description' property='tmp.valueCodeableConcept.coding.(1).display' action='set' />
+<assign value='tmp' property='target.group.(st).extension' action='set' key='index' />
+</foreach>
+<foreach property='source.Groups.(st).DxCodes()' key='dx' >
+<assign value='target.group.(st).extension.Count()+1' property='index' action='set' />
+<assign value='##class(HS.FHIR.DTL.vR4.Model.Base.Extension).%New()' property='tmp' action='set' />
+<assign value='"http://hl7.org/fhir/us/davinci-ra/StructureDefinition/ra-dxCode"' property='tmp.url' action='set' />
+<assign value='source.Groups.(st).DxCodes.(dx).Code' property='tmp.valueCodeableConcept.coding.(1).code' action='set' />
+<assign value='source.Groups.(st).DxCodes.(dx).SDACodingStandard' property='tmp.valueCodeableConcept.coding.(1).system' action='set' />
+<assign value='source.Groups.(st).DxCodes.(dx).Description' property='tmp.valueCodeableConcept.coding.(1).display' action='set' />
+<assign value='tmp' property='target.group.(st).extension' action='set' key='index' />
+</foreach>
+<if condition='source.Groups.(st).StratifierCode.Code&apos;=""' >
+<true>
+<assign value='source.Groups.(st).StratifierCode.Code' property='target.group.(st).stratifier.(1).code.(1).coding.(1).code' action='set' />
+<assign value='source.Groups.(st).StratifierCode.SDACodingStandard' property='target.group.(st).stratifier.(1).code.(1).coding.(1).system' action='set' />
+<assign value='source.Groups.(st).StratifierCode.Description' property='target.group.(st).stratifier.(1).code.(1).coding.(1).display' action='set' />
+</true>
+</if>
+</foreach>
+</transform>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="HS.Local.SDA3.CodeTableDetail.ZGroupCode">
+<Super>HS.SDA3.CodeTableTranslated</Super>
+<TimeChanged>67483,35424.7855437</TimeChanged>
+<TimeCreated>67481,30983.357285</TimeCreated>
+
+<Property name="Version">
+<Type>%String</Type>
+</Property>
+
+<Property name="Text">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Serial</Type>
+<Data name="CodeTableDetailState">
+<Value name="1">
+<Value>SDATableName</Value>
+</Value>
+<Value name="2">
+<Value>SDACodingStandard</Value>
+</Value>
+<Value name="3">
+<Value>Code</Value>
+</Value>
+<Value name="4">
+<Value>Description</Value>
+</Value>
+<Value name="5">
+<Value>InternalReference</Value>
+</Value>
+<Value name="6">
+<Value>ErrorStatus</Value>
+</Value>
+<Value name="7">
+<Value>EId</Value>
+</Value>
+<Value name="8">
+<Value>OriginalText</Value>
+</Value>
+<Value name="9">
+<Value>PriorCodes</Value>
+</Value>
+<Value name="10">
+<Value>CodeSystemVersionId</Value>
+</Value>
+<Value name="11">
+<Value>Version</Value>
+</Value>
+<Value name="12">
+<Value>Text</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="HS.Local.SDA3.CodeTableDetail.ZMeasureReportCategory">
+<Super>HS.SDA3.CodeTableTranslated</Super>
+<TimeChanged>67481,31227.418044</TimeChanged>
+<TimeCreated>67481,31227.1993946</TimeCreated>
+
+<Storage name="Default">
+<Type>%Storage.Serial</Type>
+</Storage>
+</Class>
+
+
+<Class name="HS.Local.SDA3.CodeTableDetail.ZccRemark">
+<Super>HS.SDA3.CodeTableTranslated</Super>
+<TimeChanged>67483,36639.2755873</TimeChanged>
+<TimeCreated>67481,30905.1052041</TimeCreated>
+
+<Parameter name="XMLNAME">
+<Default>ZccRemark</Default>
+</Parameter>
+
+<Property name="Url">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1000"/>
+</Property>
+
+<Property name="Date">
+<Type>%DateTime</Type>
+</Property>
+
+<Property name="Reference">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1000"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Serial</Type>
+<Data name="CodeTableDetailState">
+<Value name="1">
+<Value>SDATableName</Value>
+</Value>
+<Value name="2">
+<Value>SDACodingStandard</Value>
+</Value>
+<Value name="3">
+<Value>Code</Value>
+</Value>
+<Value name="4">
+<Value>Description</Value>
+</Value>
+<Value name="5">
+<Value>InternalReference</Value>
+</Value>
+<Value name="6">
+<Value>ErrorStatus</Value>
+</Value>
+<Value name="7">
+<Value>EId</Value>
+</Value>
+<Value name="8">
+<Value>OriginalText</Value>
+</Value>
+<Value name="9">
+<Value>PriorCodes</Value>
+</Value>
+<Value name="10">
+<Value>CodeSystemVersionId</Value>
+</Value>
+<Value name="11">
+<Value>Url</Value>
+</Value>
+<Value name="12">
+<Value>Date</Value>
+</Value>
+<Value name="13">
+<Value>Reference</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="HS.Local.SDA3.Streamlet.ZMeasureReport">
+<Super>HS.SDA3.Streamlet.Abstract,%Persistent</Super>
+<TimeChanged>67481,37958.7076401</TimeChanged>
+<TimeCreated>67481,31794.8071542</TimeCreated>
+
+<Parameter name="INFOTYPE">
+<Default>ZMR</Default>
+</Parameter>
+
+<Parameter name="SDACLASS">
+<Default>HS.Local.SDA3.ZMeasureReport</Default>
+</Parameter>
+
+<Parameter name="MATCHINGS">
+<Default>ZMR/Measure</Default>
+</Parameter>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+</Storage>
+</Class>
+
+
+<Class name="HS.Local.SDA3.ZContainer">
+<Super>HS.SDA3.Container</Super>
+<TimeChanged>67481,36223.9668828</TimeChanged>
+<TimeCreated>67481,36193.673244</TimeCreated>
+
+<Parameter name="XMLNAME">
+<Default>Container</Default>
+</Parameter>
+
+<Property name="ZMeasureReports">
+<Type>HS.Local.SDA3.ZMeasureReport</Type>
+<Collection>list</Collection>
+</Property>
+</Class>
+
+
+<Class name="HS.Local.SDA3.ZMeasureReport">
+<Super>HS.SDA3.SuperClass</Super>
+<TimeChanged>67483,35484.0970788</TimeChanged>
+<TimeCreated>67481,31970.1971516</TimeCreated>
+
+<Property name="Extension">
+<Type>HS.Local.SDA3.ZMeasureReportExtension</Type>
+</Property>
+
+<Property name="MeasureReportCategory">
+<Type>HS.Local.SDA3.CodeTableDetail.ZMeasureReportCategory</Type>
+</Property>
+
+<Property name="ClinicalDataCollectionDeadline">
+<Type>HS.SDA3.TimeStamp</Type>
+</Property>
+
+<Property name="Status">
+<Type>%String</Type>
+<Parameter name="DISPLAYLIST" value=",Complete,Pending,Error"/>
+<Parameter name="VALUELIST" value=",complete,pending,error"/>
+</Property>
+
+<Property name="Type">
+<Type>%String</Type>
+<Parameter name="DISPLAYLIST" value=",Individual"/>
+<Parameter name="VALUELIST" value=",individual"/>
+</Property>
+
+<Property name="Measure">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1000"/>
+</Property>
+
+<Property name="Date">
+<Type>HS.SDA3.TimeStamp</Type>
+</Property>
+
+<Property name="PeriodStart">
+<Type>HS.SDA3.TimeStamp</Type>
+</Property>
+
+<Property name="PeriodEnd">
+<Type>HS.SDA3.TimeStamp</Type>
+</Property>
+
+<Property name="Groups">
+<Type>HS.Local.SDA3.ZMeasureReportGroup</Type>
+<Collection>list</Collection>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Serial</Type>
+<Data name="SuperClassState">
+<Subscript>"SuperClass"</Subscript>
+<Value name="1">
+<Value>ActionCode</Value>
+</Value>
+<Value name="2">
+<Value>ActionScope</Value>
+</Value>
+<Value name="3">
+<Value>EnteredBy</Value>
+</Value>
+<Value name="4">
+<Value>EnteredAt</Value>
+</Value>
+<Value name="5">
+<Value>EnteredOn</Value>
+</Value>
+<Value name="6">
+<Value>ExternalId</Value>
+</Value>
+<Value name="7">
+<Value>EncounterNumber</Value>
+</Value>
+<Value name="8">
+<Value>FromTime</Value>
+</Value>
+<Value name="9">
+<Value>ToTime</Value>
+</Value>
+<Value name="10">
+<Value>Deleted</Value>
+</Value>
+<Value name="11">
+<Value>UpdatedOn</Value>
+</Value>
+<Value name="12">
+<Value>CustomPairs</Value>
+</Value>
+<Value name="13">
+<Value>SourceFormat</Value>
+</Value>
+<Value name="14">
+<Value>ProvenanceIds</Value>
+</Value>
+<Value name="15">
+<Value>SdaID</Value>
+</Value>
+<Value name="16">
+<Value>Extension</Value>
+</Value>
+<Value name="17">
+<Value>MeasureReportCategory</Value>
+</Value>
+<Value name="18">
+<Value>ClinicalDataCollectionDeadline</Value>
+</Value>
+<Value name="19">
+<Value>Status</Value>
+</Value>
+<Value name="20">
+<Value>Type</Value>
+</Value>
+<Value name="21">
+<Value>Measure</Value>
+</Value>
+<Value name="22">
+<Value>Date</Value>
+</Value>
+<Value name="23">
+<Value>PeriodStart</Value>
+</Value>
+<Value name="24">
+<Value>PeriodEnd</Value>
+</Value>
+<Value name="25">
+<Value>Groups</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="HS.Local.SDA3.ZMeasureReportExtension">
+<Super>HS.SDA3.DataType</Super>
+<TimeChanged>67481,31824.2814383</TimeChanged>
+<TimeCreated>67481,31824.0804076</TimeCreated>
+
+<Parameter name="STREAMLETCLASS">
+<Default>HS.Local.SDA3.Streamlet.ZMeasureReport</Default>
+</Parameter>
+
+<Storage name="Default">
+<Type>%Storage.Serial</Type>
+</Storage>
+</Class>
+
+
+<Class name="HS.Local.SDA3.ZMeasureReportGroup">
+<Super>HS.SDA3.SuperClass</Super>
+<TimeChanged>67483,36662.871787</TimeChanged>
+<TimeCreated>67481,31544.9867635</TimeCreated>
+
+<Parameter name="XMLNAME">
+<Default>ZMeasureReportGroup</Default>
+</Parameter>
+
+<Property name="Name">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1000"/>
+</Property>
+
+<Property name="CcType">
+<Type>HS.SDA3.CodeTableTranslated</Type>
+</Property>
+
+<Property name="DxCodes">
+<Type>HS.SDA3.CodeTableDetail.Diagnosis</Type>
+<Collection>list</Collection>
+</Property>
+
+<Property name="EvidenceStatus">
+<Type>HS.SDA3.CodeTableTranslated</Type>
+</Property>
+
+<Property name="EvidenceStatusDate">
+<Type>HS.SDA3.TimeStamp</Type>
+</Property>
+
+<Property name="HierarchicalStatus">
+<Type>HS.SDA3.CodeTableTranslated</Type>
+</Property>
+
+<Property name="ConfidenceScale">
+<Type>HS.SDA3.CodeTableTranslated</Type>
+</Property>
+
+<Property name="CcRemarks">
+<Type>HS.Local.SDA3.CodeTableDetail.ZccRemark</Type>
+<Collection>list</Collection>
+</Property>
+
+<Property name="Code">
+<Type>HS.Local.SDA3.CodeTableDetail.ZGroupCode</Type>
+</Property>
+
+<Property name="StratifierCode">
+<Type>HS.SDA3.CodeTableTranslated</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Serial</Type>
+<Data name="SuperClassState">
+<Subscript>"SuperClass"</Subscript>
+<Value name="1">
+<Value>ActionCode</Value>
+</Value>
+<Value name="2">
+<Value>ActionScope</Value>
+</Value>
+<Value name="3">
+<Value>EnteredBy</Value>
+</Value>
+<Value name="4">
+<Value>EnteredAt</Value>
+</Value>
+<Value name="5">
+<Value>EnteredOn</Value>
+</Value>
+<Value name="6">
+<Value>ExternalId</Value>
+</Value>
+<Value name="7">
+<Value>EncounterNumber</Value>
+</Value>
+<Value name="8">
+<Value>FromTime</Value>
+</Value>
+<Value name="9">
+<Value>ToTime</Value>
+</Value>
+<Value name="10">
+<Value>Deleted</Value>
+</Value>
+<Value name="11">
+<Value>UpdatedOn</Value>
+</Value>
+<Value name="12">
+<Value>CustomPairs</Value>
+</Value>
+<Value name="13">
+<Value>SourceFormat</Value>
+</Value>
+<Value name="14">
+<Value>ProvenanceIds</Value>
+</Value>
+<Value name="15">
+<Value>SdaID</Value>
+</Value>
+<Value name="16">
+<Value>Name</Value>
+</Value>
+<Value name="17">
+<Value>CcType</Value>
+</Value>
+<Value name="18">
+<Value>DxCodes</Value>
+</Value>
+<Value name="19">
+<Value>EvidenceStatus</Value>
+</Value>
+<Value name="20">
+<Value>EvidenceStatusDate</Value>
+</Value>
+<Value name="21">
+<Value>HierarchicalStatus</Value>
+</Value>
+<Value name="22">
+<Value>ConfidenceScale</Value>
+</Value>
+<Value name="23">
+<Value>CcRemarks</Value>
+</Value>
+<Value name="24">
+<Value>Code</Value>
+</Value>
+<Value name="25">
+<Value>StratifierCode</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
